@@ -35,6 +35,15 @@ def add_employee():
     join = input("Joining Date (YYYY-MM-DD): ")
     salary = float(input("Base Salary: "))
 
+    # Ensure file ends with newline before appending
+    if os.path.getsize(EMP_FILE) > 0:
+        with open(EMP_FILE, "rb") as f:
+            f.seek(-1, 2)
+            last_char = f.read(1)
+            if last_char != b"\n":
+                with open(EMP_FILE, "a") as f:
+                    f.write("\n")
+
     with open(EMP_FILE, "a", newline="") as f:
 
         writer = csv.writer(f)

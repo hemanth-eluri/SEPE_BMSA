@@ -35,13 +35,15 @@ def calculate_bonus():
 
             score = performance[emp_id]
 
-            salary = float(employees[emp_id]["Salary"])
+            # Check if employee exists before calculating bonus
+            if emp_id in employees:
+                salary = float(employees[emp_id]["Salary"])
 
-            bonus = determine_bonus(score, salary)
+                bonus = determine_bonus(score, salary)
 
-            writer.writerow(
-                [emp_id, employees[emp_id]["Name"], score, bonus]
-            )
+                writer.writerow(
+                    [emp_id, employees[emp_id]["Name"], score, bonus]
+                )
 
     print("Bonus report generated")
 

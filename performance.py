@@ -14,6 +14,16 @@ def add_performance():
 
     score = calculate_score(attendance, tasks, project, feedback)
 
+    # Ensure file ends with newline before appending
+    import os
+    if os.path.getsize(PERF_FILE) > 0:
+        with open(PERF_FILE, "rb") as f:
+            f.seek(-1, 2)
+            last_char = f.read(1)
+            if last_char != b"\n":
+                with open(PERF_FILE, "a") as f:
+                    f.write("\n")
+
     with open(PERF_FILE, "a", newline="") as f:
 
         writer = csv.writer(f)

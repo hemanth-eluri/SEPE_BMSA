@@ -28,13 +28,22 @@ def department_performance():
 
 def bonus_distribution():
 
+    import os
+    
+    if not os.path.exists(BONUS_FILE) or os.path.getsize(BONUS_FILE) == 0:
+        print("No bonus report available. Generate bonus report first.")
+        return
+    
     df = pd.read_csv(BONUS_FILE)
 
-    total = df["Bonus"].sum()
+    if df.empty or len(df) < 2:
+        print("Not enough data for bonus distribution chart.")
+        return
 
     labels = df["Name"]
 
-    plt.pie(df["Bonus"], labels=labels, autopct="%1.1f%%")
+    plt.figure(figsize=(10, 6))
+    plt.pie(df["Bonus"], labels=labels, autopct="%1.1f%%", startangle=90)
 
     plt.title("Bonus Distribution")
 
